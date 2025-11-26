@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sandra-task-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGODB_URI
+        value: https://cloud.mongodb.com/v2/690e518d5c5ecd05207939ba#/security/backup/clusters
+      - key: JWT_SECRET
+        value: Sandra2025
