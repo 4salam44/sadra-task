@@ -6,6 +6,7 @@ import { body, validationResult } from 'express-validator';
 
 const router = express.Router();
 
+// تسجيل الدخول
 router.post('/login', [
   body('username').notEmpty(),
   body('password').notEmpty()
@@ -15,16 +16,22 @@ router.post('/login', [
 
   const { username, password } = req.body;
   const user = await User.findOne({ username, isActive: true });
-  
+
   if (!user || !bcrypt.compareSync(password, user.password)) {
     return res.status(401).send('بيانات الدخول غير صحيحة');
   }
 
-  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET);
-  res.json({ token, user: { id: user._id, username, role: user.role, fullName: user.fullName } });
+  const token = jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET
+  );
+
+  res.json({
+    token,
+    user: { id: user._id, username, role: user.role, fullName: user.fullName }
+  });
 });
 
-export default router;
 // endpoint مؤقت لإنشاء الإدمن الأول (سيتم تعطيله لاحقاً)
 router.post('/setup-first-admin', async (req, res) => {
   try {
@@ -39,8 +46,11 @@ router.post('/setup-first-admin', async (req, res) => {
       role: 'admin',
       isActive: true
     });
+
     res.json({ message: '✅ تم إنشاء حساب الإدمن بنجاح' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
+
+export default router;
