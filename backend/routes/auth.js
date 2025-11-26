@@ -25,3 +25,22 @@ router.post('/login', [
 });
 
 export default router;
+// endpoint مؤقت لإنشاء الإدمن الأول (سيتم تعطيله لاحقاً)
+router.post('/setup-first-admin', async (req, res) => {
+  try {
+    const exists = await User.findOne({ username: 'admin' });
+    if (exists) return res.status(400).json({ message: 'Admin already exists' });
+
+    const hashed = bcrypt.hashSync('admin123', 12);
+    await User.create({
+      fullName: 'مدير النظام',
+      username: 'admin',
+      password: hashed,
+      role: 'admin',
+      isActive: true
+    });
+    res.json({ message: '✅ تم إنشاء حساب الإدمن بنجاح' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
