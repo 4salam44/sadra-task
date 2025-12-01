@@ -1,0 +1,13 @@
+name: Create Default Admin
+on:
+  workflow_dispatch:  # يُنفَّذ يدوياً من تبويب Actions في GitHub
+
+jobs:
+  create-admin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Admin via API
+        run: |
+          curl -X POST ${{ secrets.RENDER_BACKEND_URL }}/api/auth/setup-admin \
+            -H "Content-Type: application/json" \
+            -d '{"username":"admin","password":"admin123","fullName":"مدير النظام"}'

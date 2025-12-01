@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&family=Noto+Sans+Arabic:wght@400;500;600&display=swap');
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f3f4f6;
+  @apply font-sans text-brand-ink bg-brand-soft;
+  background-image: radial-gradient(circle at 10% 20%, rgba(140, 197, 255, 0.35) 0%, rgba(248, 250, 255, 0.9) 45%),
+    radial-gradient(circle at 90% 10%, rgba(92, 110, 248, 0.25) 0%, rgba(248, 250, 255, 0.95) 50%);
+  min-height: 100vh;
 }

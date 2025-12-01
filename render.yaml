@@ -6,6 +6,6 @@ services:
     startCommand: node server.js
     envVars:
       - key: MONGODB_URI
-        value: https://cloud.mongodb.com/v2/690e518d5c5ecd05207939ba#/security/backup/clusters
+        value: REPLACE_WITH_REAL_MONGODB_URI
       - key: JWT_SECRET
         value: Sandra2025

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البدائل الإستراتيجية - عرض تقديمي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f7f7f7;
+            overflow: hidden;
+        }
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: scale(0.95);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .slide-content > * {
+            animation: fadeIn 1s ease-out both;
+            animation-delay: 0.5s;
+        }
+        .animated-list li {
+            animation: slideInUp 0.6s ease-out both;
+            opacity: 0;
+        }
+        .bg-gradient-blue {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        .bg-gradient-teal {
+            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+        }
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, #6d28d9 0%, #a855f7 100%);
+        }
+        .title-effect {
+            animation: tracking-in-contract 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes tracking-in-contract {
+            0% { letter-spacing: 1em; opacity: 0; }
+            40% { opacity: 0.6; }
+            100% { letter-spacing: normal; opacity: 1; }
+        }
+
+        /* Responsive Table Styling */
+        .responsive-table th, .responsive-table td {
+            padding: 10px;
+            text-align: right;
+            border: 1px solid #ccc;
+        }
+        .responsive-table th {
+            background-color: #3b82f6;
+            color: white;
+            font-weight: bold;
+        }
+        .llm-output-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            overflow-y: auto;
+            display: none;
+            text-align: right;
+        }
+        .llm-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #fff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .llm-button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container" class="relative">
+        <!-- Slide 1: العنوان الرئيسي -->
+        <div id="slide-0" class="slide bg-gradient-blue text-white active">
+            <div class="text-center slide-content">
+                <h1 class="text-7xl font-extrabold mb-4 title-effect">البدائل الإستراتيجية</h1>
+                <p class="text-3xl mb-8">المحاضرة السابعة: الإدارة الإستراتيجية المتقدمة</p>
+                <div class="text-xl space-y-2">
+                    <p>مقدم العرض: **د/ فهد العميسي**</p>
+                    <p>التاريخ: 1/30/2025</p>
+                </div>
+                <!--Placeholder for Academia Logo and Strategic Graphic-->
+                <div class="flex justify-center items-center mt-8 space-x-8">
+                     <img src="https://placehold.co/150x150/000/FFF?text=شعار+الأكاديمية" alt="شعار الأكاديمية" class="rounded-full opacity-70">
+                     <img src="https://placehold.co/200x150/FFF/000?text=رسم+بياني+إستراتيجي" alt="رسم بياني استراتيجي مجرد" class="rounded-lg shadow-xl opacity-70">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: تعريف البدائل الإستراتيجية -->
+        <div id="slide-1" class="slide bg-white text-gray-800 absolute top-0 left-0">
+            <div class="slide-content max-w-4xl">
+                <h2 class="text-5xl font-bold text-blue-700 mb-8 border-b-4 border-blue-500 pb-2">1. ما هي البدائل الإستراتيجية؟</h2>
+
+                <div class="flex space-x-12">
+                    <div class="w-2/3">
+                        <p class="text-2xl mb-6">**التعريف:** هي عملية تحديد <span class="text-blue-600 font-extrabold">الخيارات الإستراتيجية</span> المتاحة والقابلة للتطبيق للمنظمة.</p>
+                        <p class="text-2xl mb-8">**مسؤولية الإختيار:** تقع على عاتق **الإدارة العليا** ومدراء العموم.</p>
+                    </div>
+                    <div class="w-1/3 flex justify-center items-center">
+                        <!--Placeholder: Gear Icon / Decision Making-->
+                         <img src="https://placehold.co/150x150/3b82f6/FFFFFF?text=تروس+الاختيار" alt="أيقونة عجلات تروس" class="text-blue-500 opacity-80">
+                    </div>
+                </div>
+
+                <h3 class="text-3xl font-semibold mt-8 mb-4 text-teal-600">نتائج عملية التحديد:</h3>
+                <ul class="animated-list text-2xl space-y-3 mr-6">
+                    <li style="animation-delay: 0.8s;" class="flex items-center"><span class="text-green-500 text-3xl ml-3">✔</span> **استراتيجيات يجب تطبيقها.**</li>
+                    <li style="animation-delay: 1.1s;" class="flex items-center"><span class="text-yellow-500 text-3xl ml-3">★</span> **استراتيجيات يفضل تطبيقها.**</li>
+                    <li style="animation-delay: 1.4s;" class="flex items-center"><span class="text-red-500 text-3xl ml-3">✘</span> **استراتيجيات يجب عدم تطبيقها.**</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: مستويات الإستراتيجيات -->
+        <div id="slide-2" class="slide bg-gray-100 text-gray-800 absolute top-0 left-0">
+             <div class="slide-content max-w-5xl text-center">
+                <h2 class="text-5xl font-bold text-teal-700 mb-8 border-b-4 border-teal-500 pb-2">2. مستويات الإستراتيجيات</h2>
+                <p class="text-2xl mb-12">تُصاغ الإستراتيجيات على ثلاثة مستويات رئيسية:</p>
+
+                <!-- Responsive Table/Structure -->
+                <div class="overflow-x-auto">
+                    <table class="responsive-table w-full text-2xl rounded-lg shadow-2xl">
+                        <thead>
+                            <tr>
+                                <th class="w-1/4">المستوى</th>
+                                <th class="w-1/3">التركيز الرئيسي</th>
+                                <th class="w-auto">السؤال الجوهري</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="animation-delay: 0.8s;">
+                                <td>**1. مستوى المنظمة**</td>
+                                <td>المنظمة ككل (**تطوير حقيبة الأعمال**).</td>
+                                <td>**ما هي الأعمال أو الصناعات التي يجب أن نمارسها؟**</td>
+                            </tr>
+                            <tr style="animation-delay: 1.1s;">
+                                <td>**2. مستوى القطاع**</td>
+                                <td>قطاع أعمال معين (**تحسين الموقف التنافسي**).</td>
+                                <td>**كيف يمكن للمنظمة أن تنافس في هذا القطاع؟**</td>
+                            </tr>
+                            <tr style="animation-delay: 1.4s;">
+                                <td>**3. مستوى الوظيفة**</td>
+                                <td>تحسين فعاليات الوظائف الأساسية.</td>
+                                <td>**كيف نحسن الأداء في وظائف المنظمة؟**</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Placeholder: Hierarchical/Pyramid Structure-->
+                <div class="mt-8">
+                    <img src="https://placehold.co/250x100/a855f7/FFFFFF?text=هرم+المستويات" alt="هرم المستويات" class="mx-auto rounded-lg opacity-80">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: استراتيجيات المنظمة: الاستقرار -->
+        <div id="slide-3" class="slide bg-white text-gray-800 absolute top-0 left-0">
+            <div class="slide-content max-w-5xl">
+                <h2 class="text-5xl font-bold text-blue-700 mb-8 border-b-4 border-blue-500 pb-2">3. أولاً: استراتيجيات على مستوى المنظمة</h2>
+                <h3 class="text-4xl font-extrabold text-purple-600 mb-6">أ) استراتيجيات الإستقرار (النمو المستقر)</h3>
+
+                <div class="flex items-start space-x-8">
+                    <div class="w-1/4">
+                         <!--Placeholder: Anchor Icon-->
+                        <img src="https://placehold.co/150x150/6d28d9/FFFFFF?text=أيقونة+مرساة" alt="أيقونة مرساة" class="mx-auto mt-4 rounded-lg opacity-80">
+                    </div>
+                    <div class="w-3/4">
+                        <p class="text-2xl mb-4">**الهدف:** **الإبقاء** على رسالة المنظمة وأهدافها ومستوى أدائها كما كانت عليه سابقاً.</p>
+                        <p class="text-2xl mb-6">**الحالات المناسبة:** استقرار البيئة الخارجية والداخلية.</p>
+
+                        <h4 class="text-3xl font-semibold mt-4 mb-3 text-teal-600">أنواعها:</h4>
+                        <ul class="animated-list text-xl space-y-2 list-disc list-inside mr-6">
+                            <li style="animation-delay: 0.8s;">**عدم التغيير:** الاستمرار على نفس المسار.</li>
+                            <li style="animation-delay: 1.0s;">**الربح:** التركيز على الأرباح المؤقتة.</li>
+                            <li style="animation-delay: 1.2s;">**التريث:** تخفيض الأهداف مؤقتاً لتحسين الكفاءة.</li>
+                            <li style="animation-delay: 1.4s;">**الحيطة والحذر:** الحركة ببطء تحسباً للمهددات.</li>
+                            <li style="animation-delay: 1.6s;">**النمو التدريجي:** نمو انتقائي لأنشطة محددة.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجية الاستقرار (النمو المستقر)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجية الاستقرار (النمو المستقر)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: استراتيجيات المنظمة: النمو -->
+        <div id="slide-4" class="slide bg-gray-100 text-gray-800 absolute top-0 left-0">
+            <div class="slide-content max-w-5xl">
+                <h2 class="text-5xl font-bold text-teal-700 mb-8 border-b-4 border-teal-500 pb-2">3. أولاً: استراتيجيات على مستوى المنظمة (تابع)</h2>
+                <h3 class="text-4xl font-extrabold text-purple-600 mb-6">ب) استراتيجيات النمو والتوسع</h3>
+
+                <div class="flex items-start space-x-8">
+                    <div class="w-1/4 flex justify-center items-center">
+                        <!--Placeholder: Growth Arrow Icon-->
+                         <img src="https://placehold.co/150x150/10b981/FFFFFF?text=سهم+صاعد" alt="أيقونة سهم صاعد" class="mx-auto mt-4 rounded-lg opacity-80">
+                    </div>
+                    <div class="w-3/4">
+                        <p class="text-2xl mb-4">**الهدف:** **رفع مستوى الأهداف**، تطوير منتجات وأسواق وعمليات إنتاج جديدة.</p>
+                        <p class="text-2xl mb-6">**الحالات المناسبة:** الصناعات المتقلبة، تحقيق مكانة أقوى، اقتصاديات الحجم الكبير.</p>
+                    </div>
+                </div>
+
+                <div class="flex mt-8 space-x-8">
+                    <div class="w-1/2">
+                        <h4 class="text-3xl font-semibold mb-3 text-blue-600">1. استراتيجيات التكامل (سلسلة القيمة):</h4>
+                        <ul class="animated-list text-xl space-y-2 list-disc list-inside mr-6">
+                            <li style="animation-delay: 0.8s;">**التكامل الأمامي:** امتلاك الرقابة على منافذ التوزيع.</li>
+                            <li style="animation-delay: 1.0s;">**التكامل الخلفي:** امتلاك السيطرة على أنشطة توريد الاحتياجات.</li>
+                            <li style="animation-delay: 1.2s;">**التكامل الأفقي:** امتلاك الشركات المنافسة (اندماج).</li>
+                        </ul>
+                    </div>
+                     <div class="w-1/2">
+                        <h4 class="text-3xl font-semibold mb-3 text-blue-600">2. استراتيجيات التنويع (منتجات/أسواق جديدة):</h4>
+                        <ul class="animated-list text-xl space-y-2 list-disc list-inside mr-6">
+                            <li style="animation-delay: 1.4s;">**التنويع المتمركز:** منتجات جديدة <span class="font-bold">مرتبطة</span> بالقائمة.</li>
+                            <li style="animation-delay: 1.6s;">**التنويع المختلط:** منتجات جديدة <span class="font-bold">ليس لها ارتباط</span> بالقائمة.</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجيات النمو والتوسع (التكامل والتنويع)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجيات النمو والتوسع (التكامل والتنويع)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: استراتيجيات المنظمة: المكثفة -->
+        <div id="slide-5" class="slide bg-white text-gray-800 absolute top-0 left-0">
+             <div class="slide-content max-w-5xl text-center">
+                <h2 class="text-5xl font-bold text-blue-700 mb-8 border-b-4 border-blue-500 pb-2">3. أولاً: استراتيجيات على مستوى المنظمة (تابع)</h2>
+                <h3 class="text-4xl font-extrabold text-purple-600 mb-10">ج) الاستراتيجيات المكثفة</h3>
+
+                <p class="text-2xl mb-8">تتطلب <span class="font-extrabold text-red-500">مجهوداً مكثفاً</span> لتطوير الوضع التنافسي لمنتجات المنظمة:</p>
+
+                <!-- 3-Column Layout for Intensive Strategies -->
+                <div class="flex space-x-6 justify-center text-center">
+                    <div style="animation-delay: 0.8s;" class="animated-list p-6 bg-blue-50 rounded-lg shadow-lg w-1/3">
+                        <span class="text-4xl text-blue-600 mb-3 block">🎯</span>
+                        <h4 class="text-2xl font-bold mb-2">1. اختراق السوق</h4>
+                        <p class="text-lg">زيادة الحصة السوقية للمنتجات **الحالية** في السوق **الحالية**.</p>
+                    </div>
+                    <div style="animation-delay: 1.1s;" class="animated-list p-6 bg-blue-50 rounded-lg shadow-lg w-1/3">
+                        <span class="text-4xl text-blue-600 mb-3 block">🌍</span>
+                        <h4 class="text-2xl font-bold mb-2">2. تطوير السوق</h4>
+                        <p class="text-lg">تقديم المنتجات **الحالية** إلى أسواق **جديدة** (محلية أو دولية).</p>
+                    </div>
+                    <div style="animation-delay: 1.4s;" class="animated-list p-6 bg-blue-50 rounded-lg shadow-lg w-1/3">
+                        <span class="text-4xl text-blue-600 mb-3 block">🧪</span>
+                        <h4 class="text-2xl font-bold mb-2">3. تطوير المنتج</h4>
+                        <p class="text-lg">تطوير أو تعديل مواصفات المنتجات **الحالية** (استجابة للتطور التكنولوجي).</p>
+                    </div>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('الاستراتيجيات المكثفة: اختراق، تطوير السوق، تطوير المنتج', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('الاستراتيجيات المكثفة: اختراق، تطوير السوق، تطوير المنتج', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: استراتيجيات المنظمة: الانكماش -->
+        <div id="slide-6" class="slide bg-gray-100 text-gray-800 absolute top-0 left-0">
+             <div class="slide-content max-w-5xl">
+                <h2 class="text-5xl font-bold text-teal-700 mb-8 border-b-4 border-teal-500 pb-2">3. أولاً: استراتيجيات على مستوى المنظمة (تابع)</h2>
+                <h3 class="text-4xl font-extrabold text-purple-600 mb-6">د) استراتيجيات الانكماش (التقليص)</h3>
+
+                <p class="text-2xl mb-10">**الهدف:** <span class="font-extrabold text-red-600">تقليل آفاق التعاملات</span> والأعمال عن المعدلات السابقة.</p>
+
+                <div class="flex items-start space-x-10">
+                    <div class="w-1/4 flex justify-center items-center">
+                        <!--Placeholder: Down Arrow/Scissors Icon-->
+                         <img src="https://placehold.co/150x150/ef4444/FFFFFF?text=مقص+التقليص" alt="أيقونة سهم هابط" class="mx-auto mt-4 rounded-lg opacity-80">
+                    </div>
+                    <ul class="animated-list text-2xl space-y-4 w-3/4 mr-6">
+                        <li style="animation-delay: 0.8s;">**تخفيض حجم العمليات:** إلغاء وحدات إنتاجية أو الحد من معدلات الإنتاج.</li>
+                        <li style="animation-delay: 1.1s;">**التحول لنشاط آخر:** تحويل نشاط الشركة بالكامل إلى نشاط جديد (بسبب تقادم المنتجات).</li>
+                        <li style="animation-delay: 1.4s;">**التصفية وبيع الأصول:** بيع كل أصول الشركة وإيقاف نشاطها (الخيار الأخير لتجنب الإفلاس).</li>
+                    </ul>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجيات الانكماش (التقليص)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجيات الانكماش (التقليص)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: استراتيجيات القطاع (بورتر) -->
+        <div id="slide-7" class="slide bg-gradient-teal text-white absolute top-0 left-0">
+             <div class="slide-content max-w-5xl text-center">
+                <h2 class="text-5xl font-extrabold mb-8 border-b-4 border-white pb-2">4. ثانياً: استراتيجيات على مستوى القطاع (استراتيجيات بورتر)</h2>
+                <p class="text-2xl mb-12">تُعرف بـ **الإستراتيجيات التنافسية العامة**، وتهدف لتحسين الموقف التنافسي في القطاع:</p>
+
+                <div class="flex space-x-6 text-center">
+                    <div style="animation-delay: 0.8s;" class="animated-list p-6 bg-white bg-opacity-10 rounded-lg shadow-lg w-1/3 border-b-4 border-yellow-300">
+                        <span class="text-5xl mb-3 block">🏷️</span>
+                        <h4 class="text-2xl font-bold mb-2">1. القيادة في قلة التكلفة</h4>
+                        <p class="text-lg">تقديم السلع والخدمات **بأقل سعر** (اقتصاديات الحجم الكبير، رقابة التكاليف).</p>
+                    </div>
+                    <div style="animation-delay: 1.1s;" class="animated-list p-6 bg-white bg-opacity-10 rounded-lg shadow-lg w-1/3 border-b-4 border-yellow-300">
+                        <span class="text-5xl mb-3 block">💎</span>
+                        <h4 class="text-2xl font-bold mb-2">2. التمييز</h4>
+                        <p class="text-lg">إنتاج منتجات **فريدة وعالية الجودة** على مستوى شامل للسوق.</p>
+                    </div>
+                    <div style="animation-delay: 1.4s;" class="animated-list p-6 bg-white bg-opacity-10 rounded-lg shadow-lg w-1/3 border-b-4 border-yellow-300">
+                        <span class="text-5xl mb-3 block">🔍</span>
+                        <h4 class="text-2xl font-bold mb-2">3. التركيز</h4>
+                        <p class="text-lg">التركيز على مجموعة **صغيرة** من المستهلكين (النيش) (تكلفة أو تمييز).</p>
+                    </div>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجيات بورتر التنافسية العامة (التكلفة، التمييز، التركيز)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجيات بورتر التنافسية العامة (التكلفة، التمييز، التركيز)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: استراتيجيات الوظيفة -->
+        <div id="slide-8" class="slide bg-white text-gray-800 absolute top-0 left-0">
+            <div class="slide-content max-w-5xl">
+                <h2 class="text-5xl font-bold text-blue-700 mb-8 border-b-4 border-blue-500 pb-2">5. ثالثاً: استراتيجيات على مستوى الوظيفة</h2>
+                <p class="text-2xl mb-8">**الهدف:** تحسين فعاليات الوظائف الأساسية لرفع مستوى:</p>
+
+                <div class="flex justify-center mb-8">
+                    <span class="text-3xl font-extrabold text-teal-600 p-2 mx-2 rounded-lg bg-teal-100">الجودة</span>
+                    <span class="text-3xl font-extrabold text-teal-600 p-2 mx-2 rounded-lg bg-teal-100">الكفاءة</span>
+                    <span class="text-3xl font-extrabold text-teal-600 p-2 mx-2 rounded-lg bg-teal-100">التحديث</span>
+                    <span class="text-3xl font-extrabold text-teal-600 p-2 mx-2 rounded-lg bg-teal-100">الاستجابة للعملاء</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6">
+                    <!-- Function Strategy Cards -->
+                    <div style="animation-delay: 0.8s;" class="animated-list p-4 w-5/12 bg-blue-50 rounded-lg shadow-md border-r-4 border-blue-400">
+                        <h4 class="text-xl font-bold mb-1 text-blue-700">التسويق ( الاستجابة للعملاء)</h4>
+                        <p class="text-base">تحديد اتجاهات السوق، حملات إعلانية فعالة.</p>
+                    </div>
+                    <div style="animation-delay: 1.0s;" class="animated-list p-4 w-5/12 bg-blue-50 rounded-lg shadow-md border-r-4 border-blue-400">
+                        <h4 class="text-xl font-bold mb-1 text-blue-700">الإنتاج ( الكفاءة والجودة)</h4>
+                        <p class="text-base">اقتصاديات الحجم الكبير، المرونة في عمليات الإنتاج.</p>
+                    </div>
+                    <div style="animation-delay: 1.2s;" class="animated-list p-4 w-5/12 bg-blue-50 rounded-lg shadow-md border-r-4 border-blue-400">
+                        <h4 class="text-xl font-bold mb-1 text-blue-700">الموارد البشرية ( التحديث)</h4>
+                        <p class="text-base">استئجار العلماء المهرة، تطوير برامج تدريبية.</p>
+                    </div>
+                    <div style="animation-delay: 1.4s;" class="animated-list p-4 w-5/12 bg-blue-50 rounded-lg shadow-md border-r-4 border-blue-400">
+                        <h4 class="text-xl font-bold mb-1 text-blue-700">الإدارة المالية ( الكفاءة)</h4>
+                        <p class="text-base">البحث عن مصادر تمويل منخفضة التكلفة، تبسيط العمليات.</p>
+                    </div>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجيات على مستوى الوظيفة (التسويق، الإنتاج، المالية، الموارد البشرية)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجيات على مستوى الوظيفة (التسويق، الإنتاج، المالية، الموارد البشرية)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: استراتيجيات الدخول للسوق الدولية -->
+        <div id="slide-9" class="slide bg-gradient-purple text-white absolute top-0 left-0">
+             <div class="slide-content max-w-5xl text-center">
+                <h2 class="text-5xl font-extrabold mb-8 border-b-4 border-white pb-2">6. استراتيجيات الدخول إلى السوق الدولية</h2>
+                <p class="text-2xl mb-10">تختار الشركات من بين عدة استراتيجيات للتوسع عالمياً:</p>
+
+                <div class="flex flex-wrap justify-center gap-6 text-xl">
+                    <div style="animation-delay: 0.8s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">1. التصدير 🚢</div>
+                    <div style="animation-delay: 1.0s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">2. الترخيص ✍️</div>
+                    <div style="animation-delay: 1.2s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">3. مشروعات تسليم المفتاح 🔑</div>
+                    <div style="animation-delay: 1.4s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">4. العقود الإدارية 💼</div>
+                    <div style="animation-delay: 1.6s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">5. عقود التصنيع الأجنبي 🏭</div>
+                    <div style="animation-delay: 1.8s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">6. محفظة الاستثمار 📈</div>
+                    <div style="animation-delay: 2.0s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">7. المشاركة (المشروع المشترك)🤝</div>
+                    <div style="animation-delay: 2.2s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">8. الملكية الكاملة 🏢</div>
+                    <div style="animation-delay: 2.4s;" class="animated-list p-3 bg-white bg-opacity-10 rounded-lg w-1/4">9. التحالفات الإستراتيجية 🔗</div>
+                </div>
+                <div class="llm-button-group">
+                    <button onclick="getLlmContent('استراتيجيات الدخول إلى السوق الدولية (التصدير، الترخيص، المشاركة)', 'أمثلة واقعية')" class="px-6 py-3 bg-green-600 text-white font-bold rounded-full hover:bg-green-700 transition duration-300 shadow-xl">
+                        اقتراح أمثلة واقعية ✨
+                    </button>
+                     <button onclick="getLlmContent('استراتيجيات الدخول إلى السوق الدولية (التصدير، الترخيص، المشاركة)', 'أسئلة مناقشة')" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition duration-300 shadow-xl">
+                        أسئلة مناقشة 💬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: الخاتمة -->
+        <div id="slide-10" class="slide bg-white text-gray-800 absolute top-0 left-0">
+             <div class="slide-content max-w-3xl text-center">
+                <h2 class="text-6xl font-extrabold text-blue-700 mb-6">شكراً لحسن استماعكم</h2>
+                <p class="text-3xl mb-8 border-t pt-4">**نهاية المحاضرة السابعة**</p>
+                <div class="text-2xl space-y-4">
+                    <p>نتمنى لكم دوام التوفيق والنجاح.</p>
+                    <p class="font-extrabold text-teal-600">د/ فهد العميسي</p>
+                </div>
+                <!--Placeholder: Thank you Image-->
+                <img src="https://placehold.co/200x100/3b82f6/FFFFFF?text=تحية+وشكر" alt="صورة شكر وتحية" class="mx-auto mt-8 rounded-lg shadow-xl">
+            </div>
+        </div>
+
+        <!-- Navigation buttons -->
+        <button id="prevBtn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10 hidden" onclick="navigateSlide(-1)">▶️</button>
+        <button id="nextBtn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10" onclick="navigateSlide(1)">◀️</button>
+    </div>
+
+    <!-- LLM Output Modal -->
+    <div id="llmModal" class="llm-output-box">
+        <h3 id="modalTitle" class="text-3xl font-bold text-blue-700 mb-4 border-b pb-2"></h3>
+        <div id="llmOutput" class="text-xl text-gray-700 mb-6 whitespace-pre-wrap"></div>
+        <button onclick="closeModal()" class="px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition duration-300">إغلاق</button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="llmLoading" class="llm-loading">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const apiKey = ""; // API key is provided at runtime
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                    // Reset animation for content
+                    const contentElements = slide.querySelectorAll('.slide-content > *');
+                    contentElements.forEach(el => {
+                        el.style.animation = 'none';
+                        el.offsetHeight; /* trigger reflow */
+                        el.style.animation = '';
+                    });
+                }
+            });
+            updateNavigation();
+        }
+
+        function navigateSlide(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').style.display = currentSlide === 0 ? 'none' : 'block';
+            document.getElementById('nextBtn').style.display = currentSlide === slides.length - 1 ? 'none' : 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('llmModal').style.display = 'none';
+        }
+
+        async function getLlmContent(strategyName, contentType) {
+            document.getElementById('llmLoading').style.display = 'flex';
+            
+            let userQuery = '';
+            let systemPrompt = '';
+            let useSearch = false;
+
+            if (contentType === 'أمثلة واقعية') {
+                document.getElementById('modalTitle').textContent = `أمثلة واقعية لـ: ${strategyName}`;
+                userQuery = `قدم 3 أمثلة حديثة وواقعية وواضحة لـ: "${strategyName}" في عالم الأعمال. يجب أن يكون كل مثال في سطر منفصل، وأن يكون موجزاً ومركّزاً على اسم الاستراتيجية.`;
+                systemPrompt = "أنت مساعد خبير في الإدارة الاستراتيجية. مهمتك هي توليد أمثلة تطبيقية واقعية ومقنعة للاستراتيجيات المطلوبة باللغة العربية. يجب أن تكون الأمثلة من الشركات المعروفة أو الصناعات الحديثة.";
+                useSearch = true;
+            } else if (contentType === 'أسئلة مناقشة') {
+                document.getElementById('modalTitle').textContent = `أسئلة مناقشة حول: ${strategyName}`;
+                userQuery = `قم بتوليد 3 أسئلة مناقشة عميقة ومحفزة للطلاب حول استراتيجية: "${strategyName}". ركز على أسئلة تتطلب تحليلاً أو تقييماً نقدياً وليس مجرد تعريفات. يجب أن يكون كل سؤال في سطر منفصل.`;
+                systemPrompt = "أنت مصمم مناهج أكاديمي. مهمتك هي توليد أسئلة مناقشة نقدية وعالية الجودة في مجال الإدارة الاستراتيجية.";
+                useSearch = false; // Discussion questions do not need grounding
+            }
+            
+            document.getElementById('llmOutput').textContent = 'جاري التوليد...';
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            if (useSearch) {
+                payload.tools = [{ "google_search": {} }];
+            }
+
+            const maxRetries = 3;
+            let currentRetry = 0;
+
+            while (currentRetry < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "تعذر توليد المحتوى حالياً.";
+                    
+                    document.getElementById('llmOutput').textContent = text;
+                    document.getElementById('llmModal').style.display = 'block';
+                    document.getElementById('llmLoading').style.display = 'none';
+                    return; // Exit loop on success
+
+                } catch (error) {
+                    console.error("Fetch error:", error);
+                    currentRetry++;
+                    if (currentRetry < maxRetries) {
+                        const delay = Math.pow(2, currentRetry) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            }
+            
+            // If all retries fail
+            document.getElementById('llmOutput').textContent = "فشل في الاتصال بخدمة توليد المحتوى بعد عدة محاولات.";
+            document.getElementById('llmModal').style.display = 'block';
+            document.getElementById('llmLoading').style.display = 'none';
+        }
+
+        // Initialize presentation
+        document.addEventListener('DOMContentLoaded', () => {
+            slides.forEach((slide, i) => {
+                if (i !== 0) {
+                    slide.style.position = 'absolute';
+                    slide.style.top = 0;
+                    slide.style.left = 0;
+                }
+            });
+            showSlide(currentSlide);
+        });
+
+        // Keyboard Navigation (Arrow Keys)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                if (currentSlide < slides.length - 1) {
+                    navigateSlide(1);
+                }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentSlide > 0) {
+                    navigateSlide(-1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
